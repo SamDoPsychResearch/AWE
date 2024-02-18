@@ -76,216 +76,56 @@ rm(check1, check2, check3)
 ##Transforming response data into numerical
 ##BFI2O
 number_vals <- function(data, cols, vals){
-  data[, cols] <- lapply(data[, cols], function(x) {
-    for (value in names(vals)) {
-      x[x == value] <- vals[value]
-    }
-    return(x)
-  })
+  for (col in cols) {
+    data[[col]] <- lapply(data[[col]], function(x) {
+      for (value in names(vals)) {
+        x[x == value] <- vals[[value]]
+      }
+      return(x)
+    })
+  }
+  return(data)
 }
 
-bfi2o_cols <- 7:18
+bfi2o_cols <- c(7:18, 132:179) ##includes the separate bfi2o given at the beginning and the rest at the end
 bfi2_vals <- c("Agree strongly" = 5, "Agree a little" = 4, "Neutral; no opinion" = 3, "Disagree a little" = 2, "Strongly disagree" = 1)
 
-number_vals(data, bfi2o_cols, bfi2_vals)
+data <- number_vals(data, bfi2o_cols, bfi2_vals)
 
 ##AWE-S
-mat2 = matrix(ncol=30, nrow=625)
-i=1;
-while(i<626){
-  j=1
-  while(j<31){
-    y=data[i,j+179]
-    if (y == "Strongly disagree"){
-      mat2[i,j] = 1;
-    }
-    else if (y == "Moderately Disagree"){
-      mat2[i,j] = 2;
-    }
-    else if (y == "Somewhat disagree"){
-      mat2[i,j] = 3;
-    }
-    else if (y == "Neutral"){
-      mat2[i,j] = 4
-    }
-    else if (y == "Somewhat agree"){
-      mat2[i,j] = 5
-    }
-    else if (y == "Moderately Agree"){
-      mat2[i,j] = 6
-    }
-    else if (y == "Strongly agree"){
-      mat2[i,j] = 7
-    }
-    j=j+1
-  }
-  i=i+1
-}
+awes_col <- c(58:87, 180:209) ##this includes the block for the pos/neg awe and control conditions
+awes_vals <- c("Strongly disagree" = 1, "Moderately Disagree" = 2, "Somewhat disagree" = 3, "Neutral" = 4, "Somewhat agree" = 5,
+               "Moderately Agree" = 6, "Strongly agree" = 7)
 
-##Q141 is the Qualtrics block for the AWE-S for the control condition
-mat2b = matrix(ncol=30, nrow=625)
-i=1;
-while(i<626){
-  j=1
-  while(j<31){
-    y=data[i,j+57]
-    if (y == "Strongly disagree"){
-      mat2[i,j] = 1;
-    }
-    else if (y == "Moderately Disagree"){
-      mat2[i,j] = 2;
-    }
-    else if (y == "Somewhat disagree"){
-      mat2[i,j] = 3;
-    }
-    else if (y == "Neutral"){
-      mat2[i,j] = 4
-    }
-    else if (y == "Somewhat agree"){
-      mat2[i,j] = 5
-    }
-    else if (y == "Moderately Agree"){
-      mat2[i,j] = 6
-    }
-    else if (y == "Strongly agree"){
-      mat2[i,j] = 7
-    }
-    j=j+1
-  }
-  i=i+1
-}
+data <- number_vals(data, awes_col, awes_vals)
 
 ##DPES
-mat4 = matrix(ncol=6, nrow=389)
-i=1;
-while(i<390){
-  j=1
-  while(j<7){
-    y=data[i,j+56]
-    if (y == "Strongly disagree"){
-      mat4[i,j] = 1;
-    }
-    else if (y == "Moderately disagree"){
-      mat4[i,j] = 2;
-    }
-    else if (y == "Somewhat disagree"){
-      mat4[i,j] = 3;
-    }
-    else if (y == "Neutral"){
-      mat4[i,j] = 4
-    }
-    else if (y == "Somewhat agree"){
-      mat4[i,j] = 5
-    }
-    else if (y == "Moderately agree"){
-      mat4[i,j] = 6
-    }
-    else if (y == "Strongly agree"){
-      mat4[i,j] = 7
-    }
-    j=j+1
-  }
-  i=i+1
-}
+dpes_col <- 49:54 
+dpes_vals <- c("Strongly disagree" = 1, "Moderately disagree" = 2, "Somewhat disagree" = 3, "Neutral" = 4, "Somewhat agree" = 5,
+               "Moderately agree" = 6, "Strongly agree" = 7)
+
+data <- number_vals(data, dpes_col, dpes_vals)
 
 ##SAS
-mat5 = matrix(ncol=15, nrow=389)
-i=1;
-while(i<390){
-  j=1
-  while(j<16){
-    y=data[i,j+95]
-    if (y == "Strongly disagree"){
-      mat5[i,j] = 1;
-    }
-    else if (y == "Moderately disagree"){
-      mat5[i,j] = 2;
-    }
-    else if (y == "Somewhat disagree"){
-      mat5[i,j] = 3;
-    }
-    else if (y == "Neutral"){
-      mat5[i,j] = 4
-    }
-    else if (y == "Somewhat agree"){
-      mat5[i,j] = 5
-    }
-    else if (y == "Moderately agree"){
-      mat5[i,j] = 6
-    }
-    else if (y == "Strongly agree"){
-      mat5[i,j] = 7
-    }
-    j=j+1
-  }
-  i=i+1
-}
+sas_col <- c(88:102, 210:224) ##this includes the block for the pos/neg awe and control conditions
+sas_vals <- c("Strongly disagree" = 1, "Moderately disagree" = 2, "Somewhat disagree" = 3, "Neutral" = 4, "Somewhat agree" = 5,
+               "Moderately agree" = 6, "Strongly agree" = 7)
+
+data <- number_vals(data, sas_col, sas_vals)
 
 ##Small Self
-mat6 = matrix(ncol=10, nrow=389)
-i=1;
-while(i<390){
-  j=1
-  while(j<11){
-    y=data[i,j+110]
-    if (y == "Strongly disagree"){
-      mat6[i,j] = 1;
-    }
-    else if (y == "Moderately disagree"){
-      mat6[i,j] = 2;
-    }
-    else if (y == "Somewhat disagree"){
-      mat6[i,j] = 3;
-    }
-    else if (y == "Neutral"){
-      mat6[i,j] = 4
-    }
-    else if (y == "Somewhat agreee"){
-      mat6[i,j] = 5
-    }
-    else if (y == "Moderately agree"){
-      mat6[i,j] = 6
-    }
-    else if (y == "Strongly agree"){
-      mat6[i,j] = 7
-    }
-    j=j+1
-  }
-  i=i+1
-}
+ss_col <- c(103:112, 225:234) ##this includes the block for the pos/neg awe and control conditions
+ss_vals <- c("Strongly disagree" = 1, "Moderately disagree" = 2, "Somewhat disagree" = 3, "Neutral" = 4, "Somewhat agree" = 5,
+              "Moderately agree" = 6, "Strongly agree" = 7)
+
+data <- number_vals(data, ss_col, ss_vals)
 
 ##Shiota
-mat7 = matrix(ncol=7, nrow=389)
-i=1;
-while(i<390){
-  j=1
-  while(j<8){
-    y=data[i,j+120]
-    if (y == "Not true at all"){
-      mat7[i,j] = 1;
-    }
-    else if (y == "Moderately untrue"){
-      mat7[i,j] = 2;
-    }
-    else if (y == "Somewhat untrue"){
-      mat7[i,j] = 3;
-    }
-    else if (y == "Neutral"){
-      mat7[i,j] = 4
-    }
-    else if (y == "Somewhat true"){
-      mat7[i,j] = 5
-    }
-    else if (y == "Moderately true"){
-      mat7[i,j] = 6
-    }
-    else if (y == "Very true"){
-      mat7[i,j] = 7
-    }
-    j=j+1
-  }
-  i=i+1
-}
+shiota_col <- c(113:119, 235:241) ##this includes the block for the pos/neg awe and control conditions
+shiota_vals <- c("Not true at all" = 1, "Moderately untrue" = 2, "Somewhat untrue" = 3, "Neutral" = 4, "Somewhat true" = 5,
+             "Moderately true" = 6, "Very true" = 7)
+
+data <- number_vals(data, shiota_col, shiota_vals)
 
 ##MTAS
 mat8 = matrix(ncol=24, nrow=389)
