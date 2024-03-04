@@ -87,10 +87,10 @@ number_vals <- function(data, cols, vals){
   return(data)
 }
 
-bfi2o_cols <- c(7:18, 132:179) ##includes the separate bfi2o given at the beginning and the rest at the end
+bfi2_cols <- c(7:18, 132:179) ##includes the separate bfi2o given at the beginning and the rest at the end
 bfi2_vals <- c("Agree strongly" = 5, "Agree a little" = 4, "Neutral; no opinion" = 3, "Disagree a little" = 2, "Strongly disagree" = 1)
 
-data <- number_vals(data, bfi2o_cols, bfi2_vals)
+data <- number_vals(data, bfi2_cols, bfi2_vals)
 
 ##AWE-S
 awes_col <- c(58:87, 180:209) ##this includes the block for the pos/neg awe and control conditions
@@ -128,49 +128,37 @@ shiota_vals <- c("Not true at all" = 1, "Moderately untrue" = 2, "Somewhat untru
 data <- number_vals(data, shiota_col, shiota_vals)
 
 ##MTAS
-mat8 = matrix(ncol=24, nrow=389)
-i=1;
-while(i<390){
-  j=1
-  while(j<25){
-    y=data[i,j+26]
-    if (y == "Never"){
-      mat8[i,j] = 1;
-    }
-    else if (y == "Rarely"){
-      mat8[i,j] = 2;
-    }
-    else if (y == "Occasionally"){
-      mat8[i,j] = 3;
-    }
-    else if (y == "Neutral"){
-      mat8[i,j] = 4
-    }
-    else if (y == "Somewhat"){
-      mat8[i,j] = 5
-    }
-    else if (y == "Often"){
-      mat8[i,j] = 6
-    }
-    else if (y == "Always"){
-      mat8[i,j] = 7
-    }
-    j=j+1
-  }
-  i=i+1
-}
+mtas_col <- c(19:42) ##this includes the block for the pos/neg awe and control conditions
+mtas_vals <- c("Never" = 1, "Rarely" = 2, "Occasionally" = 3, "Neutral" = 4, "Somewhat" = 5,
+                 "Often" = 6, "Always" = 7)
 
-data[,15:26] <- mat
-data[,66:95] <- mat2
-data[,57:62] <- mat4
-data[,96:110] <- mat5
-data[,111:120] <- mat6
-data[,121:127] <- mat7
-data[,27:50] <- mat8
-rm(mat, mat2, mat4, mat5, mat6, mat7, mat8, i, j, y)
+data <- number_vals(data, mtas_col, mtas_vals)
+
+##TAS
+tas_col <- 114:125
+tas_vals <- c("True" = 1, "False" = 0)
+
+data <- number_vals(data, tas_col, tas_vals)
+
+##Getting rid of all of this stuff to keep the environment less overwhelming
+rm(awes_col, awes_vals, bfi2_vals, bfi2_cols, dpes_col, dpes_vals, mtas_col, mtas_vals, sas_col, sas_vals, shiota_col, shiota_vals,
+   ss_col, ss_vals, tas_col, tas_vals)
 
 ##Removing this now because I hadn't removed it when writing the above code
 data <- data %>% select(-c(paste0('Emotion.Recall_', 1:6)))
+
+##ALL OF THE VALUES ARE LISTS AND NEED TO BE TURNED INTO DOUBLES/INTEGERS
+# List of column names containing lists
+list_columns <- c(paste0("DPES_",1:6), paste0("AWE.S_",1:30), paste0(rep("SAS_",15),c(1:3, 5:16)), 
+                  paste0(rep("Small.Self_",10),1:10), paste0(rep("Shiota_",7),1:7), paste0("MTAS_",1:24), 
+                  paste0("BFI2O_", c(1:9, 11:13)), paste0("Q1_", c(1:41, 43:49)), paste0("Q141_",1:30), 
+                  paste0(rep("Q142_",15),c(1:3, 5:16)), paste0("Q143_", 1:10), paste0("Q144_", 1:7), paste0("Q71_", 1:12))
+
+# Loop through each column and convert lists to doubles
+for(col in list_columns) {
+  data <- data %>%
+    mutate(!!col := as.integer(!!sym(col))) 
+}
 
 ##Dispositional Positive Emotions Scale
 dpes.items <- paste0("DPES_",1:6)
@@ -181,14 +169,22 @@ data$dpes <- dpes.results$score
 describe(data$dpes)
 
 ##Awe Experience Scale
-awes.items <- paste0(rep("AWE.S_",30),1:30)
+awes.items <- c(paste0(rep("AWE.S_",30),1:30))
 awes.key <- rep(1,30)
 awes.results <- scoreItems(keys = awes.key, items = data[awes.items], missing = TRUE, impute = "none", min = 1, max = 7)
 awes.results 
 data$awes <- awes.results$score
 describe(data$awes)
 
-awes.td.items <- paste0(rep("AWE.S_",5),1:5)
+##For the people who got the control condition
+awesc.items <- c(paste0("Q141_",1:30))
+awesc.key <- rep(1,30)
+awesc.results <- scoreItems(keys = awesc.key, items = data[awesc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+awesc.results 
+data$awesc <- awesc.results$score
+describe(data$awesc)
+
+awes.td.items <- c(paste0(rep("AWE.S_",5),1:5), paste0("Q141_",1:5))
 awes.td.key <- rep(1,5)
 awes.td.results <- scoreItems(keys = awes.td.key, items = data[awes.td.items], missing = TRUE, impute = "none", min = 1, max = 7)
 awes.td.results
