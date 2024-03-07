@@ -7,6 +7,7 @@ library(car)
 library('GPArotation')
 library(psych)
 library(fastDummies)
+#Worked on by Jenny and Sam 
 
 ##Useful Function
 meansd <- function(x){
