@@ -184,11 +184,17 @@ awesc.results
 data$awesc <- awesc.results$score
 describe(data$awesc)
 
-awes.td.items <- c(paste0(rep("AWE.S_",5),1:5), paste0("Q141_",1:5))
+awes.td.items <- c(paste0(rep("AWE.S_",5),1:5))
 awes.td.key <- rep(1,5)
 awes.td.results <- scoreItems(keys = awes.td.key, items = data[awes.td.items], missing = TRUE, impute = "none", min = 1, max = 7)
 awes.td.results
 data$awes.td <- awes.td.results$score
+
+awes.tdc.items <- c(paste0(rep("Q141_",5),6:10))
+awes.tdc.key <- rep(1,5)
+awes.tdc.results <- scoreItems(keys = awes.tdc.key, items = data[awes.tdc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+awes.tdc.results
+data$awes.tdc <- awes.tdc.results$score
 
 awes.sd.items <- paste0(rep("AWE.S_",5),6:10)
 awes.sd.key <- rep(1,5)
@@ -196,11 +202,23 @@ awes.sd.results <- scoreItems(keys = awes.sd.key, items = data[awes.sd.items], m
 awes.sd.results
 data$awes.sd <- awes.sd.results$score
 
+awes.sdc.items <- paste0(rep("Q141_",5),6:10)
+awes.sdc.key <- rep(1,5)
+awes.sdc.results <- scoreItems(keys = awes.sdc.key, items = data[awes.sdc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+awes.sdc.results
+data$awes.sdc <- awes.sdc.results$score
+
 awes.c.items <- paste0(rep("AWE.S_",5),11:15)
 awes.c.key <- rep(1,5)
 awes.c.results <- scoreItems(keys = awes.c.key, items = data[awes.c.items], missing = TRUE, impute = "none", min = 1, max = 7)
 awes.c.results
 data$awes.c <- awes.c.results$score
+
+awes.cc.items <- paste0(rep("Q141_",5),11:15)
+awes.cc.key <- rep(1,5)
+awes.cc.results <- scoreItems(keys = awes.cc.key, items = data[awes.cc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+awes.cc.results
+data$awes.cc <- awes.cc.results$score
 
 awes.v.items <- paste0(rep("AWE.S_",5),16:20)
 awes.v.key <- rep(1,5)
@@ -208,17 +226,35 @@ awes.v.results <- scoreItems(keys = awes.v.key, items = data[awes.v.items], miss
 awes.v.results
 data$awes.v <- awes.v.results$score
 
+awes.vc.items <- paste0(rep("AWE.S_",5),16:20)
+awes.vc.key <- rep(1,5)
+awes.vc.results <- scoreItems(keys = awes.vc.key, items = data[awes.vc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+awes.vc.results
+data$awes.vc <- awes.vc.results$score
+
 awes.ps.items <- paste0(rep("AWE.S_",5),21:25)
 awes.ps.key <- rep(1,5)
 awes.ps.results <- scoreItems(keys = awes.ps.key, items = data[awes.ps.items], missing = TRUE, impute = "none", min = 1, max = 7)
 awes.ps.results
 data$awes.ps <- awes.ps.results$score
 
+awes.psc.items <- paste0(rep("AWE.S_",5),21:25)
+awes.psc.key <- rep(1,5)
+awes.psc.results <- scoreItems(keys = awes.psc.key, items = data[awes.psc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+awes.psc.results
+data$awes.psc <- awes.psc.results$score
+
 awes.na.items <- paste0(rep("AWE.S_",5),26:30)
 awes.na.key <- rep(1,5)
 awes.na.results <- scoreItems(keys = awes.na.key, items = data[awes.na.items], missing = TRUE, impute = "none", min = 1, max = 7)
 awes.na.results
 data$awes.na <- awes.na.results$score
+
+awes.nac.items <- paste0(rep("AWE.S_",5),26:30)
+awes.nac.key <- rep(1,5)
+awes.nac.results <- scoreItems(keys = awes.nac.key, items = data[awes.nac.items], missing = TRUE, impute = "none", min = 1, max = 7)
+awes.nac.results
+data$awes.nac <- awes.nac.results$score
 
 ##Situational Awe Scale
 sas.items <- paste0(rep("SAS_",15),c(1:3, 5:16))
@@ -228,11 +264,24 @@ sas.results
 data$sas <- sas.results$score
 describe(data$sas)
 
+sasc.items <- paste0(rep("Q142_",15),c(1:3, 5:16))
+sasc.key <- rep(1,15)
+sasc.results <- scoreItems(keys = sasc.key, items = data[sasc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+sasc.results 
+data$sasc <- sasc.results$score
+describe(data$sasc)
+
 sas.co.items <- paste0(rep("SAS_",4),c(1:3, 5))
 sas.co.key <- rep(1,4)
 sas.co.results <- scoreItems(keys = sas.co.key, items = data[sas.co.items], missing = TRUE, impute = "none", min = 1, max = 7)
 sas.co.results 
 data$sas.co <- sas.co.results$score
+
+sas.coc.items <- paste0(rep("Q142_",4),c(1:3, 5))
+sas.coc.key <- rep(1,4)
+sas.coc.results <- scoreItems(keys = sas.coc.key, items = data[sas.coc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+sas.coc.results 
+data$sas.coc <- sas.coc.results$score
 
 sas.o.items <- paste0(rep("SAS_",4),c(6:8,14))
 sas.o.key <- rep(1,4)
@@ -240,17 +289,35 @@ sas.o.results <- scoreItems(keys = sas.o.key, items = data[sas.o.items], missing
 sas.o.results 
 data$sas.o <- sas.o.results$score
 
+sas.oc.items <- paste0(rep("Q142_",4),c(6:8,14))
+sas.oc.key <- rep(1,4)
+sas.oc.results <- scoreItems(keys = sas.oc.key, items = data[sas.oc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+sas.oc.results 
+data$sas.oc <- sas.oc.results$score
+
 sas.ch.items <- paste0(rep("SAS_",4),9:12)
 sas.ch.key <- rep(1,4)
 sas.ch.results <- scoreItems(keys = sas.ch.key, items = data[sas.ch.items], missing = TRUE, impute = "none", min = 1, max = 7)
 sas.ch.results 
 data$sas.ch <- sas.ch.results$score
 
+sas.chc.items <- paste0(rep("Q142_",4),9:12)
+sas.chc.key <- rep(1,4)
+sas.chc.results <- scoreItems(keys = sas.chc.key, items = data[sas.chc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+sas.chc.results 
+data$sas.chc <- sas.chc.results$score
+
 sas.ds.items <- paste0(rep("SAS_",3),c(13,15,16))
 sas.ds.key <- rep(1,3)
 sas.ds.results <- scoreItems(keys = sas.ds.key, items = data[sas.ds.items], missing = TRUE, impute = "none", min = 1, max = 7)
 sas.ds.results 
 data$sas.ds <- sas.ds.results$score
+
+sas.dsc.items <- paste0(rep("Q142_",3),c(13,15,16))
+sas.dsc.key <- rep(1,3)
+sas.dsc.results <- scoreItems(keys = sas.dsc.key, items = data[sas.dsc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+sas.dsc.results 
+data$sas.dsc <- sas.dsc.results$score
 
 ##Small Self Scale
 ss.items <- paste0(rep("Small.Self_",10),1:10)
@@ -260,17 +327,36 @@ ss.results
 data$ss <- ss.results$score
 describe(data$ss)
 
+ssc.items <- paste0(rep("Q143_",10),1:10)
+ssc.key <- rep(1,10)
+ssc.results <- scoreItems(keys = ssc.key, items = data[ssc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+ssc.results 
+data$ssc <- ssc.results$score
+describe(data$ssc)
+
 ss.v.items <- paste0(rep("Small.Self_",5),c(1:4,10))
 ss.v.key <- rep(1,5)
 ss.v.results <- scoreItems(keys = ss.v.key, items = data[ss.v.items], missing = TRUE, impute = "none", min = 1, max = 7)
 ss.v.results 
 data$ss.v <- ss.v.results$score
 
+ss.vc.items <- paste0(rep("Q143_",5),c(1:4,10))
+ss.vc.key <- rep(1,5)
+ss.vc.results <- scoreItems(keys = ss.vc.key, items = data[ss.vc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+ss.vc.results 
+data$ss.vc <- ss.vc.results$score
+
 ss.sd.items <- paste0(rep("Small.Self_",5),5:9)
 ss.sd.key <- rep(1,5)
 ss.sd.results <- scoreItems(keys = ss.sd.key, items = data[ss.sd.items], missing = TRUE, impute = "none", min = 1, max = 7)
 ss.sd.results 
 data$ss.sd <- ss.sd.results$score
+
+ss.sdc.items <- paste0(rep("Q143_",5),5:9)
+ss.sdc.key <- rep(1,5)
+ss.sdc.results <- scoreItems(keys = ss.sdc.key, items = data[ss.sdc.items], missing = TRUE, impute = "none", min = 1, max = 7)
+ss.sdc.results 
+data$ss.sdc <- ss.sdc.results$score
 
 ##Shiota's Scale
 shiota.items <- paste0(rep("Shiota_",7),1:7)
@@ -280,8 +366,43 @@ shiota.results
 data$shiota <- shiota.results$score
 describe(data$shiota)
 
-#BFI2O
-bfi2o.items <- paste0(rep("BFI2O_",12),c(1:9,11:13))
+shiotac.items <- paste0(rep("Shiota_",7),1:7)
+shiotac.key <- rep(1,7)
+shiotac.results <- scoreItems(keys = shiotac.key, items = data[shiotac.items], missing = TRUE, impute = "none", min = 1, max = 7)
+shiotac.results 
+data$shiotac <- shiotac.results$score
+describe(data$shiotac)
+
+##Tellegen's Absorption Scale
+tas.items <- paste0(rep("Q71_",12),1:12)
+tas.key <- rep(1,12)
+tas.results <- scoreItems(keys = tas.key, items = data[tas.items], missing = TRUE, impute = "none", min = 1, max = 7)
+tas.results
+data$tas <- tas.results$score
+describe(data$tas)
+
+#BFI 2
+bfi2e.items <- paste0("Q1_",c(1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 46))
+bfi2e.key <- c(1, 1, -1, -1, 1, -1, -1, -1, 1, 1, -1, 1)
+bfi2e.results <- scoreItems(keys = bfi2e.key, items = data[bfi2e.items], missing = TRUE, impute = "none", min = 1, max = 5)
+data$bfi2e <- bfi2e.results$score
+
+bfi2a.items <- paste0("Q1_",c(2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 43, 47))
+bfi2a.key <- c(1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1)
+bfi2a.results <- scoreItems(keys = bfi2a.key, items = data[bfi2a.items], missing = TRUE, impute = "none", min = 1, max = 5)
+data$bfi2a <- bfi2a.results$score
+
+bfi2c.items <- paste0("Q1_",c(3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 44, 48))
+bfi2c.key <- c(-1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1)
+bfi2c.results <- scoreItems(keys = bfi2c.key, items = data[bfi2c.items], missing = TRUE, impute = "none", min = 1, max = 5)
+data$bfi2c <- bfi2c.results$score
+
+bfi2n.items <- paste0("Q1_",c(4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 45, 49))
+bfi2n.key <- c(-1, -1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1)
+bfi2n.results <- scoreItems(keys = bfi2n.key, items = data[bfi2n.items], missing = TRUE, impute = "none", min = 1, max = 5)
+data$bfi2n <- bfi2n.results$score
+
+bfi2o.items <- paste0("BFI2O_", c(1:9, 11:13))
 bfi2o.key <- c(-1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1)
 bfi2o.results <- scoreItems(keys = bfi2o.key, items = data[bfi2o.items], missing = TRUE, impute = "none", min = 1, max = 5)
 data$bfi2o <- bfi2o.results$score
@@ -297,25 +418,37 @@ joy.key <- rep(1,4)
 joy.results <- scoreItems(keys = joy.key, items = data[joy.items], missing = TRUE, impute = "none", min = 1, max = 7)
 data$joy <- joy.results$score
 
-fear.items <- paste0(rep("MTAS_",4),c(9, 11:13))
+fear.items <- paste0(rep("MTAS_",4), 9:12)
 fear.key <- rep(1,4)
 fear.results <- scoreItems(keys = fear.key, items = data[fear.items], missing = TRUE, impute = "none", min = 1, max = 7)
 data$fear <- fear.results$score
 
-anger.items <- paste0(rep("MTAS_",4),14:17)
+anger.items <- paste0(rep("MTAS_",4),13:16)
 anger.key <- rep(1,4)
 anger.results <- scoreItems(keys = anger.key, items = data[anger.items], missing = TRUE, impute = "none", min = 1, max = 7)
 data$anger <- anger.results$score
 
-shame.items <- paste0(rep("MTAS_",4),18:21)
+shame.items <- paste0(rep("MTAS_",4),17:20)
 shame.key <- rep(1,4)
 shame.results <- scoreItems(keys = shame.key, items = data[shame.items], missing = TRUE, impute = "none", min = 1, max = 7)
 data$shame <- shame.results$score
 
-sad.items <- paste0(rep("MTAS_",4),22:25)
+sad.items <- paste0(rep("MTAS_",4),21:24)
 sad.key <- rep(1,4)
 sad.results <- scoreItems(keys = sad.key, items = data[sad.items], missing = TRUE, impute = "none", min = 1, max = 7)
 data$sad <- sad.results$score
+
+##Merging the scale scores for the awe vs control conditions into individual variables
+pairs <- c(c(data$awes, data$awesc), c(data$awes.td, data$awes.tdc), c(data$awes.sd, data$awes.sdc), c(data$awes.c, data$awes.cc),
+           c(data$awes.v, data$awes.vc), c(data$awes.ps, data$awes.psc), c(data$awes.na, data$awes.nac), c(data$sas, data$sasc),
+           c(data$sas.co, data$sas.coc), c(data$sas.o, data$sas.oc), c(data$sas.ch, data$sas.chc), c(data$sas.ds, data$sas.dsc),
+           c(data$ss, data$ssc), c(data$ss.v, data$ss.vc), c(data$ss.sd, data$ss.dc), c(data$shiota, data$shiotac))
+
+new_data <- data.frame(matrix(nrow = nrow(data), ncol = 0))
+for (pair in pairs){
+  new_col <- coalesce(pair[1], pair[2])
+  new_data <- cbind(new_data, new_col)
+}
 
 ##Separating Into Conditions 
 pos <- subset(data, data$Positive.Awe.Write != '')
