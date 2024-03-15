@@ -191,6 +191,8 @@ new_data <- bind_cols(new_data, data[unique_cols])
 data <- new_data
 rm(new_data)
 
+##JENNYS CHANGED
+
 ##Dispositional Positive Emotions Scale
 dpes.items <- paste0("DPES_",1:6)
 dpes.key <- rep(1,6)
