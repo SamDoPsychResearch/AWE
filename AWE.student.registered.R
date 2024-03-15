@@ -160,6 +160,36 @@ for(col in list_columns) {
     mutate(!!col := as.integer(!!sym(col))) 
 }
 
+# Rename columns
+names(data)[grep("^Q141_", names(data))] <- paste0("AWE.S_", 1:30)
+names(data)[grep("^Q142_", names(data))] <- paste0(rep("SAS_",15),c(1:3, 5:16))
+names(data)[grep("^Q143_", names(data))] <- paste0(rep("Small.Self_",10),1:10)
+names(data)[grep("^Q144_", names(data))] <- paste0(rep("Shiota_",7),1:7)
+
+# Identifying the unique names of the columns with duplicates
+unique_names <- names(data)[duplicated(names(data)) | duplicated(names(data), fromLast = TRUE)]
+
+# Initializing an empty dataframe for the new columns
+new_data <- as.data.frame(matrix(nrow = 625))
+
+# Looping through each unique name, finding all columns with that name, and combining them
+for (name in unique_names) {
+  # Get all columns with this name
+  cols <- data[, names(data) == name, drop = FALSE]
+  # Combine them by taking the first non-NA value across each row
+  combined <- coalesce(!!!as.list(cols))
+  # Add the combined column to the new dataframe
+  new_data[[name]] <- combined
+}
+
+# Adding the columns from the original dataframe that were not duplicated
+unique_cols <- names(data)[!names(data) %in% unique_names]
+new_data <- bind_cols(new_data, data[unique_cols])
+
+##Replacing data with new_data
+data <- new_data
+rm(new_data)
+
 ##Dispositional Positive Emotions Scale
 dpes.items <- paste0("DPES_",1:6)
 dpes.key <- rep(1,6)
