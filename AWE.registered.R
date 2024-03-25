@@ -474,8 +474,8 @@ alpha(neg[,paste0(rep("DPES_",6),1:6)]) #0.81
 alpha(pos[,paste0(rep("AWE.S_",30),1:30)]) #0.94
 alpha(neg[,paste0(rep("AWE.S_",30),1:30)]) #0.93
 
-alpha(pos[,paste0(rep("SAS_",15),1:15)]) #0.86
-alpha(neg[,paste0(rep("SAS_",15),1:15)]) #0.83
+alpha(pos[,paste0(rep("SAS_",15),c(1:3, 5:16))]) #0.86
+alpha(neg[,paste0(rep("SAS_",15),c(1:3, 5:16))]) #0.83
 
 alpha(pos[,paste0(rep("Small.Self_",10),1:10)]) #0.86
 alpha(neg[,paste0(rep("Small.Self_",10),1:10)]) #0.81
