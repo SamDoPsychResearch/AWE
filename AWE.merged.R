@@ -69,6 +69,27 @@ con.conv[upper.tri(con.conv, diag = TRUE)] <- NA
 conv_data <- rbind(as.data.frame(pos.conv), as.data.frame(neg.conv), as.data.frame(con.conv))
 crit_data <- rbind(as.data.frame(pos.crit), as.data.frame(neg.crit), as.data.frame(con.crit))
 
+##Calculating internal consistencies of the merged data
+alpha(merged_data[,awes.items])
+alpha(merged_data[,awes.td.items])
+alpha(merged_data[,awes.sd.items])
+alpha(merged_data[,awes.c.items])
+alpha(merged_data[,awes.ps.items])
+alpha(merged_data[,awes.na.items])
+alpha(merged_data[,awes.v.items])
+
+alpha(merged_data[,sas.items])
+alpha(merged_data[,sas.co.items])
+alpha(merged_data[,sas.ch.items])
+alpha(merged_data[,sas.o.items])
+alpha(merged_data[,sas.ds.items])
+
+alpha(merged_data[,ss.items])
+alpha(merged_data[,ss.v.items])
+alpha(merged_data[,ss.sd.items])
+
+alpha(merged_data[,shiota.items])
+
 ##Outputting these to be shared with Jenny and Dr. Lucas
 write.csv(model_data, "model_data.csv")
 write.csv(conv_data, "conv_data.csv")
