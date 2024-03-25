@@ -233,35 +233,17 @@ awes.v.results <- scoreItems(keys = awes.v.key, items = data[awes.v.items], miss
 awes.v.results
 data$awes.v <- awes.v.results$score
 
-awes.vc.items <- paste0(rep("AWE.S_",5),16:20)
-awes.vc.key <- rep(1,5)
-awes.vc.results <- scoreItems(keys = awes.vc.key, items = data[awes.vc.items], missing = TRUE, impute = "none", min = 1, max = 7)
-awes.vc.results
-data$awes.vc <- awes.vc.results$score
-
 awes.ps.items <- paste0(rep("AWE.S_",5),21:25)
 awes.ps.key <- rep(1,5)
 awes.ps.results <- scoreItems(keys = awes.ps.key, items = data[awes.ps.items], missing = TRUE, impute = "none", min = 1, max = 7)
 awes.ps.results
 data$awes.ps <- awes.ps.results$score
 
-awes.psc.items <- paste0(rep("AWE.S_",5),21:25)
-awes.psc.key <- rep(1,5)
-awes.psc.results <- scoreItems(keys = awes.psc.key, items = data[awes.psc.items], missing = TRUE, impute = "none", min = 1, max = 7)
-awes.psc.results
-data$awes.psc <- awes.psc.results$score
-
 awes.na.items <- paste0(rep("AWE.S_",5),26:30)
 awes.na.key <- rep(1,5)
 awes.na.results <- scoreItems(keys = awes.na.key, items = data[awes.na.items], missing = TRUE, impute = "none", min = 1, max = 7)
 awes.na.results
 data$awes.na <- awes.na.results$score
-
-awes.nac.items <- paste0(rep("AWE.S_",5),26:30)
-awes.nac.key <- rep(1,5)
-awes.nac.results <- scoreItems(keys = awes.nac.key, items = data[awes.nac.items], missing = TRUE, impute = "none", min = 1, max = 7)
-awes.nac.results
-data$awes.nac <- awes.nac.results$score
 
 ##Situational Awe Scale
 sas.items <- paste0(rep("SAS_",15),c(1:3, 5:16))
@@ -322,13 +304,6 @@ shiota.results <- scoreItems(keys = shiota.key, items = data[shiota.items], miss
 shiota.results 
 data$shiota <- shiota.results$score
 describe(data$shiota)
-
-shiotac.items <- paste0(rep("Shiota_",7),1:7)
-shiotac.key <- rep(1,7)
-shiotac.results <- scoreItems(keys = shiotac.key, items = data[shiotac.items], missing = TRUE, impute = "none", min = 1, max = 7)
-shiotac.results 
-data$shiotac <- shiotac.results$score
-describe(data$shiotac)
 
 ##Tellegen's Absorption Scale
 tas.items <- paste0(rep("Q71_",12),1:12)
@@ -407,163 +382,6 @@ pos <- subset(data, data$Positive.Awe.Write != '')
 neg <- subset(data, data$Negative.Awe.Write != '')
 con <- subset(data, data$Control.Write != '')
 
-##Internal Consistency
-alpha(pos[,paste0(rep("DPES_",6),1:6)]) #0.82
-alpha(neg[,paste0(rep("DPES_",6),1:6)]) #0.81
-
-alpha(pos[,paste0(rep("AWE.S_",30),1:30)]) #0.94
-alpha(neg[,paste0(rep("AWE.S_",30),1:30)]) #0.93
-
-##alpha(pos[,paste0(rep("SAS_",15),1:15)]) #0.86
-##alpha(neg[,paste0(rep("SAS_",15),1:15)]) #0.83
-
-alpha(pos[,paste0(rep("Small.Self_",10),1:10)]) #0.86
-alpha(neg[,paste0(rep("Small.Self_",10),1:10)]) #0.81
-
-alpha(pos[,paste0(rep("Shiota_",7),1:7)]) #0.68
-alpha(neg[,paste0(rep("Shiota_",7),1:7)]) #0.57
-
-##Convergent and Discriminant Validity
-pos.conv <- cor(as.matrix(pos[,123:140]),as.matrix(pos[,123:140]))
-neg.conv <- cor(as.matrix(neg[,123:140]),as.matrix(neg[,123:140]))
-
-mtas.pos.cor <- cor(as.matrix(pos[,123:140]),as.matrix(pos[,141:146]))
-mtas.neg.cor <- cor(as.matrix(neg[,123:140]),as.matrix(neg[,141:146]))
-
-##Creating a condition Variable
-for (i in 1:nrow(data)){
-  if (data$Positive.Awe.Write[i] != ''){
-    data$condition[i] <- 'p'
-  }
-  else if (data$Negative.Awe.Write[i] != ''){
-    data$condition[i] <- 'n'
-  }
-  else if (data$Control.Write[i] != ''){
-    data$condition[i] <- 'c'
-  }
-}
-
-data <- data %>% dummy_cols(select_columns = 'condition')
-
-##Additional Analyses
-summary(lm(awes ~ condition_p + condition_n, data))
-awes.d <- cohen.d(data['awes'], data$condition)
-summary(lm(awes.td ~ condition_p + condition_n, data))
-awes.td.d <- cohen.d(data['awes.td'], data$condition)
-summary(lm(awes.sd ~ condition_p + condition_n, data))
-awes.sd.d <- cohen.d(data['awes.sd'], data$condition)
-summary(lm(awes.c ~ condition_p + condition_n, data))
-awes.c.d <- cohen.d(data['awes.c'], data$condition)
-summary(lm(awes.v ~ condition_p + condition_n, data))
-awes.v.d <- cohen.d(data['awes.v'], data$condition)
-summary(lm(awes.ps ~ condition_p + condition_n, data))
-awes.ps.d <- cohen.d(data['awes.ps'], data$condition)
-summary(lm(awes.na ~ condition_p + condition_n, data))
-awes.na.d <- cohen.d(data['awes.na'], data$condition)
-
-summary(lm(ss ~ condition_p + condition_n, data))
-ss.d <- cohen.d(data['ss'], data$condition)
-summary(lm(ss.v ~ condition_p + condition_n, data))
-ss.v.d <- cohen.d(data['ss.v'], data$condition)
-summary(lm(ss.sd ~ condition_p + condition_n, data))
-ss.sd.d <- cohen.d(data['ss.sd'], data$condition)
-
-summary(lm(sas ~ condition_p + condition_n, data))
-sas.d <- cohen.d(data['sas'], data$condition)
-summary(lm(sas.co ~ condition_p + condition_n, data))
-sas.co.d <- cohen.d(data['sas.co'], data$condition)
-summary(lm(sas.ch ~ condition_p + condition_n, data))
-sas.ch.d <- cohen.d(data['sas.ch'], data$condition)
-summary(lm(sas.o ~ condition_p + condition_n, data))
-sas.o.d <- cohen.d(data['sas.o'], data$condition)
-summary(lm(sas.ds ~ condition_p + condition_n, data))
-sas.ds.d <- cohen.d(data['sas.ds'], data$condition)
-
-summary(lm(dpes ~ condition_p + condition_n, data))
-dpes.d <- cohen.d(data['dpes'], data$condition)
-
-summary(lm(shiota ~ condition_p + condition_n, data))
-shiota.d <- cohen.d(data['shiota'], data$condition)
-
-describe(pos[,123:146])
-describe(neg[,123:146])
-
-##DPES EFA (6 items with no subscales)
-Xdpes <- data[,51:56]
-scree(Xdpes, pc = FALSE)
-parallel <- fa.parallel(Xdpes)
-fa.dpes <- fa(r=Xdpes, 
-              nfactors = 2, 
-              fm= 'pa', 
-              rotate= 'promax')
-print(fa.dpes)
-
-##AWES EFA (30 items with six 5-item subscales)
-##Items 1-5 make up the Time Dilation subscale, items 6-10 make up the Self-Diminishment subscale, items 11-15 make up
-##the Connectedness subscale, items 16-20 make up the Vastness subscale, items 21-25 make up the Physical Sensations
-##subscale, and items 26-30 make up the Need for Accommodation subscale
-Xawes <- data[,60:89]
-scree(Xawes, pc = FALSE)
-parallel <- fa.parallel(Xawes)
-fa.awes <- fa(r=Xawes, 
-              nfactors = 6, 
-              fm= 'pa', 
-              rotate= 'promax')
-print(fa.awes)
-
-##SAS EFA (15 items with four subscales of 4, 4, 4, and 3 items)
-##Items 1-4 make up the Connection subscale, items 5-8 make up the Oppression subscale, items 9-12 make up the Chills
-##subscale, and items 13-15 make up the Diminished Self subscale
-Xsas <- data[,90:104]
-scree(Xsas, pc = FALSE)
-parallel <- fa.parallel(Xsas)
-fa.sas <- fa(r=Xsas, 
-             nfactors = 4, 
-             fm= 'pa', 
-             rotate= 'promax')
-print(fa.sas)
-
-##Small Self EFA (10 items with two 5-item subscales)
-##Items 1-4 and item 10 make up the Vastness subscale and items 5-9 make up the Self-Diminishment subscale
-Xss <- data[,105:114]
-scree(Xss, pc = FALSE)
-parallel <- fa.parallel(Xss)
-fa.ss <- fa(r=Xss, 
-            nfactors = 2, 
-            fm= 'pa', 
-            rotate= 'promax')
-print(fa.ss)
-
-##Shiota's Scale EFA (7 items with no subscales)
-Xshiota <- data[,115:121]
-scree(Xshiota, pc = FALSE)
-parallel <- fa.parallel(Xshiota)
-fa.shiota <- fa(r=Xshiota, 
-                nfactors = 3, 
-                fm= 'pa', 
-                rotate= 'promax')
-print(fa.shiota)
-
-##Subscales EFA (Total score on Shiota's Scale, 4 subscales of SAS, 6 subscales of AWES, and 2 subscales of Small Self)
-Xsub <- data[,c(125:130, 132:135, 137:138, 139)]
-scree(Xsub, pc = FALSE)
-parallel <- fa.parallel(Xsub)
-fa.sub <- fa(r=Xsub, 
-             nfactors = 3, 
-             fm= 'pa', 
-             rotate= 'promax')
-print(fa.sub)
-
-##Mega EFA (62 items total)
-Xall <- data[,60:121]
-scree(Xall, pc = FALSE)
-parallel <- fa.parallel(Xall)
-fa.mega <- fa(r=Xall, 
-              nfactors = 7, 
-              fm= 'pa', 
-              rotate= 'promax')
-print(fa.mega)
-
 ##Demographic Measures
 meansd(data$Age)
 table(data$Gender)
@@ -571,13 +389,3 @@ table(data$Transgender.not)
 table(data$race) ##FIGURE OUT HOW I WILL BE REPORTING RACE
 table(data$Ethnicity)
 table(data$Education)
-
-rm(anger.results, awes.c.d, awes.c.results, awes.c.t, awes.d, awes.na.d, awes.na.results, awes.na.t, awes.ps.d,
-   awes.ps.results, awes.ps.t, awes.results, awes.sd.d, awes.sd.results, awes.sd.t, awes.t, awes.td.d, awes.td.results,
-   awes.td.t, awes.v.d, awes.v.results, awes.v.t, bfi2a.results, bfi2c.results, bfi2e.results, bfi2n.results, 
-   bfi2o.results, check1, check2, check3, check4, check5, check6, check7, check8, dpes.d, dpes.t, dpes.results, fa.awes,
-   fa.dpes, fa.mega, fa.sas, fa.shiota, fa.ss, fa.sub, fear.results, joy.results, love.results, mat, mat2, mat4,
-   mat5, mat6, mtas.neg.cor, mtas.pos.cor, mat7, mat8, parallel, sad.results, sas.ch.d, sas.ch.results, sas.ch.t,
-   sas.co.d, sas.co.results, sas.co.t, sas.d, sas.ds.d, sas.ds.results, sas.ds.t, sas.o.d, sas.o.results, sas.o.t,
-   sas.results, sas.t, shame.results, shiota.d, shiota.results, shiota.t, ss.d, ss.results, ss.sd.d, ss.sd.results,
-   ss.sd.t, ss.t, ss.v.d, ss.v.results, ss.v.t)
